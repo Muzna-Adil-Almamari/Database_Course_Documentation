@@ -60,3 +60,45 @@ ON S.server_id = A.server_id
 
 --Task 2: LEFT JOIN 
 --List all servers and any alerts they might have received. 
+select server_name, alert_type
+from Servers S LEFT JOIN  Alerts A
+ON S.server_id = A.server_id
+
+--Task 3: RIGHT JOIN 
+--Show all alerts and the server name that triggered them, including alerts without a matching server. 
+select server_name, alert_type
+from Servers S RIGHT JOIN  Alerts A
+ON S.server_id = A.server_id
+
+--Task 4: FULL OUTER JOIN 
+--List all servers and alerts, including unmatched ones on both sides. 
+select server_name, alert_type
+from Servers S FULL OUTER JOIN  Alerts A
+ON S.server_id = A.server_id
+
+--Task 5: CROSS JOIN 
+--Pair every AI model with every server (e.g., simulation of possible deployments). 
+select server_name, model_name
+from Servers S , AI_Models M
+
+--Task 6: INNER JOIN with Filter 
+--List all critical alerts with the server name. 
+select server_name,alert_type, severity
+from Servers S INNER JOIN  Alerts A
+ON S.server_id = A.server_id
+WHERE A.severity = 'Critical'
+
+--Task 7: LEFT JOIN with NULL filter 
+--Find servers that do not have any AI models deployed. 
+select S.server_id, server_name
+from Servers S LEFT JOIN ModelDeployments M  
+ON S.server_id = M.server_id
+WHERE M.server_id IS NULL
+
+--Task 8: CROSS JOIN with WHERE 
+--Simulate possible deployments for EU region servers only. 
+select server_name, model_name
+from Servers S CROSS JOIN AI_Models M
+where  region LIKE 'eu-%'
+
+
