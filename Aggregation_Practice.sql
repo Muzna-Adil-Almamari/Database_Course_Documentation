@@ -165,16 +165,14 @@ Having count(CourseID)>1
 
 --#3. Calculate revenue per course (price * enrollments). 
 select * from Courses
-select c.CourseID,Price, COUNT(e.EnrollmentID),(c.Price * COUNT(e.EnrollmentID))
-from Courses c, Enrollments e
-group by c.CourseID
+select c.CourseID,Price, COUNT(EnrollmentID),(Price * COUNT(EnrollmentID))
+FROM Courses c JOIN Enrollments e
+on c.CourseID = e.CourseID
+group by c.CourseID,Price
 
 --#4. List instructor name + distinct student count. 
-
 --#5. Average enrollments per category. 
-
 --#6. Average course rating by instructor.
-
 --7. Top 3 courses by enrollment count.
 select * from Enrollments
 select TOP 3  count(EnrollmentID),CourseID
